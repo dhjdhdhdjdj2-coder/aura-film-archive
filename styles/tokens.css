@@ -1,0 +1,17 @@
+:root {
+  color-scheme: dark;
+  --void: #050505;
+  --archive: #0d0d0c;
+  --ivory: #eee9df;
+  --smoke: #9d978d;
+  --aura-gold: #c9a66b;
+  --oxide: #6b4a2f;
+  --display: 'Instrument Serif', 'Iowan Old Style', 'Times New Roman', serif;
+  --interface: 'Manrope', var(--font-geist-sans), Arial, sans-serif;
+  --archive-data: 'IBM Plex Mono', var(--font-geist-mono), monospace;
+  --glass: rgb(14 14 12 / 58%);
+  --glass-border: rgb(255 255 255 / 10%);
+  --ease-space: cubic-bezier(0.22, 0.78, 0.22, 1);
+  --page-gutter: clamp(1rem, 3vw, 3.5rem);
+  --section-space: clamp(7rem, 14vw, 14rem);
+}

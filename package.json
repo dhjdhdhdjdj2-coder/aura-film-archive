@@ -1,0 +1,61 @@
+{
+  "name": "sites-project",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "vinext dev",
+    "build": "node scripts/check-production-origin.mjs && vinext build",
+    "start": "vinext start",
+    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+    "check:budget": "node scripts/check-budget.mjs",
+    "process:posters": "node scripts/process-posters.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "gsap": "^3.15.0",
+    "lucide-react": "^1.33.0",
+    "next": "16.2.6",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "three": "^0.185.1"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "1.37.1",
+    "@cloudflare/workers-types": "4.20260515.1",
+    "@openai/sites-vite-plugin": "^0.1.0 || ^0.2.0",
+    "@tailwindcss/postcss": "4.2.1",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.6",
+    "@types/node": "22.19.19",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@types/three": "^0.185.4",
+    "@vitejs/plugin-react": "6.0.2",
+    "@vitejs/plugin-rsc": "0.5.26",
+    "axe-core": "^4.13.0",
+    "eslint": "9.39.4",
+    "eslint-config-next": "16.2.6",
+    "jsdom": "^30.0.1",
+    "react-server-dom-webpack": "19.2.6",
+    "sharp": "^0.35.3",
+    "tailwindcss": "4.2.1",
+    "typescript": "5.9.3",
+    "vinext": "1.0.0-beta.3",
+    "vite": "8.0.13",
+    "vitest": "^4.1.11",
+    "vitest-axe": "^0.1.0",
+    "wrangler": "4.92.0"
+  },
+  "type": "module",
+  "allowScripts": {
+    "esbuild@0.27.3": true,
+    "sharp@0.34.5": true,
+    "unrs-resolver@1.12.2": true,
+    "workerd@1.20260515.1": true
+  }
+}

@@ -1,0 +1,110 @@
+.card {
+  min-width: 0;
+  transform: translateZ(0);
+}
+
+.link {
+  display: block;
+  perspective: 70rem;
+}
+
+.picture {
+  position: relative;
+  display: block;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 9%);
+  background: #090909;
+  box-shadow: 0 1.6rem 4rem rgb(0 0 0 / 35%);
+  transition:
+    transform 320ms var(--ease-space),
+    border-color 320ms var(--ease-space),
+    box-shadow 320ms var(--ease-space);
+}
+
+.picture img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.88) contrast(1.04);
+  transition: filter 320ms var(--ease-space), transform 600ms var(--ease-space);
+}
+
+.reflection {
+  position: absolute;
+  inset: -25%;
+  pointer-events: none;
+  background: linear-gradient(112deg, transparent 35%, rgb(255 248 232 / 20%) 49%, transparent 61%);
+  transform: translateX(-82%) rotate(8deg);
+  transition: transform 520ms var(--ease-space);
+}
+
+.link:hover .picture,
+.link:focus-visible .picture {
+  border-color: rgb(201 166 107 / 35%);
+  box-shadow: 0 2rem 5rem rgb(0 0 0 / 48%), 0 0 2.8rem rgb(201 166 107 / 7%);
+  transform: scale(1.025) rotateX(0.6deg) rotateY(-1.2deg);
+}
+
+.link:hover img,
+.link:focus-visible img {
+  filter: saturate(1) contrast(1.02);
+  transform: scale(1.015);
+}
+
+.link:hover .reflection,
+.link:focus-visible .reflection {
+  transform: translateX(82%) rotate(8deg);
+}
+
+.meta {
+  display: block;
+  margin-top: 1rem;
+  color: var(--smoke);
+  font-family: var(--archive-data);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+}
+
+.card h3 {
+  margin: 0.45rem 0 0;
+  font-family: var(--display);
+  font-size: clamp(1.45rem, 2.1vw, 2.15rem);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+}
+
+.card p {
+  margin: 0.25rem 0 0;
+  color: var(--smoke);
+  font-size: 0.76rem;
+}
+
+.card [data-light-meta] {
+  transition: color 220ms var(--ease-space), opacity 220ms var(--ease-space);
+}
+
+.card[data-light-active='true'] [data-light-meta] {
+  color: var(--ivory);
+}
+
+.card[data-light-active='true'] .meta {
+  color: var(--aura-gold);
+}
+
+:global(html[data-motion='reduced']) .picture,
+:global(html[data-motion='reduced']) .picture img,
+:global(html[data-motion='reduced']) .reflection,
+:global(html[data-motion='reduced']) .card [data-light-meta] {
+  transition: none;
+}
+
+:global(html[data-motion='reduced']) .link:hover .picture,
+:global(html[data-motion='reduced']) .link:focus-visible .picture,
+:global(html[data-motion='reduced']) .link:hover img,
+:global(html[data-motion='reduced']) .link:focus-visible img,
+:global(html[data-motion='reduced']) .link:hover .reflection,
+:global(html[data-motion='reduced']) .link:focus-visible .reflection {
+  transform: none;
+}

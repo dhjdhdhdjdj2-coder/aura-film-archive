@@ -1,0 +1,38 @@
+.light {
+  --light-x: -999px;
+  --light-y: -999px;
+  position: fixed;
+  z-index: 18;
+  top: var(--light-y);
+  left: var(--light-x);
+  width: clamp(17rem, 28vw, 31rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    rgb(232 190 118 / 0.19) 0%,
+    rgb(197 145 70 / 0.075) 28%,
+    transparent 68%
+  );
+  mix-blend-mode: screen;
+  transform: translate(-50%, -50%);
+  transition: opacity 180ms ease;
+  will-change: top, left, opacity;
+}
+
+.light[data-active='true'] {
+  opacity: 1;
+}
+
+:global(html[data-motion='reduced']) .light {
+  transition-duration: 140ms;
+}
+
+@media (pointer: coarse) {
+  .light {
+    width: min(62vw, 24rem);
+    opacity: 0;
+  }
+}

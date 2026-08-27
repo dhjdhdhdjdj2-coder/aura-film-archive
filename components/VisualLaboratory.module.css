@@ -1,0 +1,485 @@
+.lab {
+  position: relative;
+  min-height: 100svh;
+  padding: clamp(7.5rem, 12vw, 12rem) var(--page-gutter) clamp(5rem, 9vw, 9rem);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 48%, rgb(198 148 78 / 0.08), transparent 30%),
+    linear-gradient(180deg, #080806 0%, #0d0c09 55%, #070706 100%);
+}
+
+.lab::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: '';
+  background-image: linear-gradient(rgb(255 255 255 / 0.028) 1px, transparent 1px);
+  background-size: 100% 5.5rem;
+  mask-image: linear-gradient(to right, transparent, black 18%, black 82%, transparent);
+}
+
+.heading {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(15rem, 4fr);
+  gap: var(--space-6);
+  align-items: end;
+  max-width: 92rem;
+  margin: 0 auto clamp(3rem, 6vw, 6rem);
+}
+
+.heading h2 {
+  grid-column: 1;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(3.1rem, 7vw, 8.7rem);
+  font-weight: 400;
+  line-height: 0.86;
+  letter-spacing: -0.055em;
+}
+
+.heading > p:last-child {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  max-width: 31rem;
+  margin: 0;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+.eyebrow,
+.panelLabel {
+  margin: 0 0 1.2rem;
+  color: var(--color-gold);
+  font-size: 0.67rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.workspace {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(2.25rem, 1fr) minmax(20rem, 4fr);
+  align-items: stretch;
+  max-width: 92rem;
+  min-height: 43rem;
+  margin: 0 auto;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  background: rgb(4 4 3 / 0.78);
+  box-shadow: 0 3rem 8rem rgb(0 0 0 / 0.55);
+}
+
+.preview {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  padding: clamp(2rem, 5vw, 5.5rem);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 45%, rgb(219 174 100 / 0.12), transparent 35%),
+    #080807;
+}
+
+.preview::before,
+.preview::after {
+  position: absolute;
+  pointer-events: none;
+  content: '';
+}
+
+.preview::before {
+  inset: 0;
+  opacity: 0.55;
+  background: linear-gradient(115deg, transparent 25%, rgb(255 233 195 / 0.08) 50%, transparent 70%);
+  transform: translateX(-28%);
+  transition: transform 240ms ease;
+}
+
+.preview:hover::before {
+  transform: translateX(28%);
+}
+
+.preview::after {
+  inset: 1.25rem;
+  border: 1px solid rgb(255 255 255 / 0.055);
+}
+
+.imageFrame {
+  position: relative;
+  width: min(55%, 25rem);
+  aspect-ratio: 2 / 3;
+  isolation: isolate;
+  box-shadow: 0 2rem 5rem rgb(0 0 0 / 0.7);
+  transition: box-shadow 240ms ease, transform 240ms ease;
+}
+
+.imageFrame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: hue-rotate(calc(var(--lab-temperature-shift) + var(--lab-tint))) contrast(var(--lab-contrast));
+  transition: filter 220ms ease;
+}
+
+.materialSheen,
+.mist,
+.grain,
+.radiance {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.materialSheen {
+  opacity: 0.3;
+  background: linear-gradient(118deg, transparent 22%, rgb(255 255 255 / 0.3) 46%, transparent 57%);
+  mix-blend-mode: screen;
+  transition: opacity 220ms ease, background 220ms ease;
+}
+
+.preview[data-material='paper'] .materialSheen {
+  opacity: 0.12;
+  background-image: repeating-linear-gradient(35deg, rgb(255 255 255 / 0.08) 0 1px, transparent 1px 3px);
+  mix-blend-mode: soft-light;
+}
+
+.preview[data-material='glass'] .imageFrame {
+  box-shadow: 0 2rem 5rem rgb(0 0 0 / 0.7), inset 0 0 0 1px rgb(255 255 255 / 0.2);
+}
+
+.preview[data-material='metal'] .materialSheen {
+  opacity: 0.47;
+  background: linear-gradient(105deg, rgb(210 214 217 / 0.17), transparent 28%, rgb(255 255 255 / 0.31) 52%, transparent 72%);
+  mix-blend-mode: color-dodge;
+}
+
+.mist {
+  opacity: 0;
+  background: radial-gradient(ellipse at 50% 72%, rgb(223 231 224 / 0.55), transparent 57%);
+  filter: blur(12px);
+  transition: opacity 220ms ease;
+}
+
+.grain {
+  opacity: 0;
+  background: url('/textures/grain.webp') center / 16rem;
+  mix-blend-mode: soft-light;
+  transition: opacity 220ms ease;
+}
+
+.radiance {
+  inset: -16%;
+  z-index: -1;
+  opacity: 0;
+  background: radial-gradient(circle, rgb(231 183 98 / 0.43), transparent 57%);
+  filter: blur(20px);
+  transition: opacity 220ms ease;
+}
+
+.preview[data-atmosphere~='mist'] .mist {
+  opacity: 0.5;
+}
+
+.preview[data-atmosphere~='grain'] .grain {
+  opacity: 0.38;
+}
+
+.preview[data-atmosphere~='radiance'] .radiance {
+  opacity: 1;
+}
+
+.readout {
+  position: absolute;
+  right: 2.25rem;
+  bottom: 2rem;
+  left: 2.25rem;
+  display: flex;
+  justify-content: space-between;
+  color: rgb(245 240 226 / 0.5);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+}
+
+.axis {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 2.2rem 0;
+  border-inline: 1px solid rgb(255 255 255 / 0.08);
+  color: rgb(245 240 226 / 0.35);
+  writing-mode: vertical-rl;
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.2em;
+}
+
+.axis i {
+  width: 1px;
+  height: 18%;
+  background: linear-gradient(transparent, rgb(212 164 91 / 0.7), transparent);
+}
+
+.controls {
+  padding: clamp(2rem, 4vw, 4rem);
+  background:
+    linear-gradient(135deg, rgb(255 255 255 / 0.045), transparent 42%),
+    rgb(17 16 13 / 0.93);
+  backdrop-filter: blur(24px);
+}
+
+.range {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.75rem;
+  padding: 1.35rem 0;
+  border-top: 1px solid rgb(255 255 255 / 0.09);
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+}
+
+.range output {
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+}
+
+.range input {
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 1.2rem;
+  margin: 0;
+  accent-color: var(--color-gold);
+  cursor: ew-resize;
+}
+
+.optionGroup {
+  margin: 0;
+  padding: 1.4rem 0;
+  border: 0;
+  border-top: 1px solid rgb(255 255 255 / 0.09);
+}
+
+.optionGroup legend {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+}
+
+.optionGroup legend small {
+  float: right;
+  color: rgb(245 240 226 / 0.35);
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.segmented,
+.checks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.segmented label,
+.checks label {
+  position: relative;
+}
+
+.segmented input,
+.checks input {
+  position: absolute;
+  opacity: 0;
+}
+
+.segmented span,
+.checks span {
+  display: grid;
+  min-height: 2.6rem;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  color: rgb(245 240 226 / 0.46);
+  font-size: 0.62rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.segmented label + label span,
+.checks label + label span {
+  border-left: 0;
+}
+
+.segmented input:checked + span,
+.checks input:checked + span {
+  border-color: rgb(210 163 87 / 0.55);
+  color: var(--color-text);
+  background: rgb(205 157 80 / 0.11);
+}
+
+.segmented input:focus-visible + span,
+.checks input:focus-visible + span {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgb(255 255 255 / 0.09);
+}
+
+.actions button,
+.recipe button {
+  min-height: 2.8rem;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  color: var(--color-text);
+  background: transparent;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 180ms ease, background 180ms ease;
+}
+
+.actions button:first-child {
+  border-color: rgb(210 163 87 / 0.55);
+  background: rgb(205 157 80 / 0.1);
+}
+
+.actions button:hover,
+.recipe button:hover {
+  border-color: var(--color-gold);
+}
+
+.recipe {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(31rem, 100%);
+  padding: clamp(2rem, 4vw, 4rem);
+  border-left: 1px solid rgb(210 163 87 / 0.3);
+  background: rgb(12 12 10 / 0.94);
+  box-shadow: -3rem 0 8rem rgb(0 0 0 / 0.6);
+  backdrop-filter: blur(30px);
+}
+
+.recipe > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.recipe button {
+  padding: 0 1rem;
+}
+
+.recipe dl {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0;
+  margin: 0;
+}
+
+.recipe dt,
+.recipe dd {
+  margin: 0;
+  padding: 1.25rem 0;
+  border-top: 1px solid rgb(255 255 255 / 0.09);
+}
+
+.recipe dt {
+  color: var(--color-text-muted);
+}
+
+.recipe dd {
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  text-align: right;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .heading {
+    grid-template-columns: 1fr;
+  }
+
+  .heading > p:last-child {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .workspace {
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.75fr);
+  }
+
+  .axis {
+    display: none;
+  }
+
+  .imageFrame {
+    width: min(70%, 23rem);
+  }
+}
+
+@media (max-width: 680px) {
+  .lab {
+    padding-inline: 0;
+  }
+
+  .heading {
+    padding-inline: var(--page-gutter);
+  }
+
+  .workspace {
+    grid-template-columns: 1fr;
+    border-inline: 0;
+  }
+
+  .preview {
+    min-height: 36rem;
+  }
+
+  .imageFrame {
+    width: min(76%, 19rem);
+  }
+
+  .readout {
+    right: 1rem;
+    left: 1rem;
+  }
+
+  .recipe {
+    position: fixed;
+    top: auto;
+    width: 100%;
+    max-height: 84svh;
+    overflow: auto;
+  }
+}
+
+:global(html[data-motion='reduced']) .preview::before,
+:global(html[data-motion='reduced']) .imageFrame,
+:global(html[data-motion='reduced']) .imageFrame img,
+:global(html[data-motion='reduced']) .materialSheen,
+:global(html[data-motion='reduced']) .mist,
+:global(html[data-motion='reduced']) .grain,
+:global(html[data-motion='reduced']) .radiance {
+  transition: none;
+}

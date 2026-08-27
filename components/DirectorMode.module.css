@@ -1,0 +1,271 @@
+.director {
+  padding: var(--section-space) var(--page-gutter);
+  scroll-margin-top: 7rem;
+  background:
+    radial-gradient(circle at 78% 28%, rgb(107 74 47 / 9%), transparent 30rem),
+    var(--void);
+}
+
+.heading {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: 1rem 4rem;
+  align-items: end;
+  margin-bottom: clamp(4rem, 9vw, 9rem);
+}
+
+.heading > p:first-child {
+  grid-column: 1 / -1;
+}
+
+.heading h2 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(3.3rem, 7.5vw, 7.8rem);
+  font-weight: 400;
+  line-height: 0.88;
+  letter-spacing: -0.05em;
+}
+
+.heading > p:last-child {
+  max-width: 31rem;
+  margin: 0 0 0.4rem;
+  color: var(--smoke);
+  font-family: var(--display);
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  font-style: italic;
+  line-height: 1.55;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(20rem, 0.95fr) minmax(24rem, 1.05fr);
+  gap: clamp(2.5rem, 7vw, 8rem);
+}
+
+.artwork {
+  position: sticky;
+  top: 6.5rem;
+  align-self: start;
+}
+
+.posterStack {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 10%);
+  box-shadow: 0 2.5rem 7rem rgb(0 0 0 / 52%);
+}
+
+.posterStack img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.before {
+  filter: grayscale(1) contrast(0.9) brightness(0.78);
+}
+
+.after {
+  clip-path: inset(0 calc(100% - var(--comparison)) 0 0);
+}
+
+.divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--comparison);
+  width: 1px;
+  background: var(--aura-gold);
+  box-shadow: 0 0 1.5rem rgb(201 166 107 / 70%);
+  transform: translateX(-1px);
+}
+
+.comparisonControls {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.8rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.comparisonControls button {
+  min-height: 2.75rem;
+  border: 0;
+  background: transparent;
+  color: var(--smoke);
+  font-family: var(--archive-data);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+}
+
+.comparisonControls label {
+  display: grid;
+}
+
+.comparisonControls label span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.comparisonControls input {
+  width: 100%;
+  accent-color: var(--aura-gold);
+}
+
+.artworkMeta {
+  color: var(--smoke);
+  font-family: var(--archive-data);
+  font-size: 0.6rem;
+  letter-spacing: 0.13em;
+}
+
+.stages {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgb(255 255 255 / 9%);
+}
+
+.stages > li {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 1rem;
+  padding: 1.6rem 0;
+  border-bottom: 1px solid rgb(255 255 255 / 9%);
+}
+
+.stages > li > span {
+  padding-top: 0.4rem;
+  color: var(--smoke);
+  font-family: var(--archive-data);
+  font-size: 0.62rem;
+}
+
+.stages > li[data-active='true'] > span {
+  color: var(--aura-gold);
+}
+
+.stages h3 {
+  margin: 0;
+}
+
+.stages h3 button {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--smoke);
+  text-align: left;
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 3.4vw, 3.6rem);
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.stages li[data-active='true'] h3 button {
+  color: var(--ivory);
+}
+
+.stageBody {
+  max-width: 38rem;
+  padding: 1rem 0 0;
+}
+
+.stageBody > p,
+.stageBody li {
+  color: var(--smoke);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.stageBody ul {
+  display: grid;
+  gap: 0.55rem;
+  margin: 1.2rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.copy {
+  min-height: 2.75rem;
+  margin-top: 1.4rem;
+  padding: 0 1rem;
+  border: 1px solid rgb(201 166 107 / 35%);
+  background: rgb(201 166 107 / 6%);
+  color: var(--ivory);
+  font-family: var(--archive-data);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+}
+
+.activeRecord {
+  margin-top: 3rem;
+  padding: 2rem;
+  border: 1px solid var(--glass-border);
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+}
+
+.activeRecord blockquote {
+  margin: 1.2rem 0 0;
+  font-family: var(--display);
+  font-size: clamp(1.4rem, 2.5vw, 2.4rem);
+  font-style: italic;
+  line-height: 1.25;
+}
+
+.provenance {
+  margin-top: 4rem;
+}
+
+.provenance dl {
+  margin: 1rem 0 0;
+}
+
+.provenance dl div {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid rgb(255 255 255 / 7%);
+  font-family: var(--archive-data);
+  font-size: 0.62rem;
+  line-height: 1.5;
+}
+
+.provenance dt {
+  color: var(--smoke);
+}
+
+.provenance dd {
+  margin: 0;
+}
+
+@media (max-width: 850px) {
+  .heading,
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .heading {
+    gap: 1.5rem;
+  }
+
+  .artwork {
+    position: static;
+  }
+
+  .processPanel {
+    margin-top: 2rem;
+  }
+}
