@@ -1,8 +1,9 @@
 'use client';
 
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState, type CSSProperties } from 'react';
 import type { Film } from '../data/films';
 import type { RenderTier } from '../lib/renderTier';
+import { sitePath } from '../lib/sitePath';
 import styles from './Landing.module.css';
 
 const LazyHeroScene = lazy(() => import('../scenes/HeroScene'));
@@ -30,7 +31,7 @@ export function Landing({
   useEffect(() => {
     if (tier === 'static') return;
     const reveal = () => setSceneReady(true);
-    if ('requestIdleCallback' in window) {
+    if (typeof window.requestIdleCallback === 'function') {
       const handle = window.requestIdleCallback(reveal, { timeout: 900 });
       return () => window.cancelIdleCallback(handle);
     }
@@ -45,6 +46,9 @@ export function Landing({
       aria-labelledby="hero-title"
       data-render-tier={tier}
       data-reduced-motion={reducedMotion}
+      style={{
+        '--grain-texture': `url("${sitePath('/textures/grain.webp')}")`,
+      } as CSSProperties}
     >
       <div className={styles.atmosphere} aria-hidden="true" />
       <picture className={styles.lcpPoster} data-hero-poster>

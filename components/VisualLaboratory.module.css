@@ -167,7 +167,7 @@
 
 .grain {
   opacity: 0;
-  background: url('/textures/grain.webp') center / 16rem;
+  background: var(--grain-texture) center / 16rem;
   mix-blend-mode: soft-light;
   transition: opacity 220ms ease;
 }

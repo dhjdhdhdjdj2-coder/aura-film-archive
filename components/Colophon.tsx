@@ -1,4 +1,5 @@
 import type { Film } from '../data/films';
+import { sitePath } from '../lib/sitePath';
 import styles from './Colophon.module.css';
 
 interface ColophonProps {
@@ -27,7 +28,7 @@ export function Colophon({ films, onOpen }: ColophonProps) {
             {films.map((film) => (
               <li key={film.slug}>
                 <a
-                  href={`/?film=${film.slug}`}
+                  href={`${sitePath('/')}?film=${film.slug}`}
                   onClick={(event) => {
                     if (
                       event.button !== 0 ||

@@ -52,15 +52,15 @@ const widths = [480, 800, 1200, 1600] as const;
 function posterAsset(slug: string, alt: string): Film['poster'] {
   return {
     avifSrcSet: widths
-      .map((width) => `/posters/${slug}-${width}.avif ${width}w`)
+      .map((width) => sitePath(`/posters/${slug}-${width}.avif`) + ` ${width}w`)
       .join(', '),
     webpSrcSet: widths
-      .map((width) => `/posters/${slug}-${width}.webp ${width}w`)
+      .map((width) => sitePath(`/posters/${slug}-${width}.webp`) + ` ${width}w`)
       .join(', '),
     jpgSrcSet: widths
-      .map((width) => `/posters/${slug}-${width}.jpg ${width}w`)
+      .map((width) => sitePath(`/posters/${slug}-${width}.jpg`) + ` ${width}w`)
       .join(', '),
-    jpg: `/posters/${slug}-1200.jpg`,
+    jpg: sitePath(`/posters/${slug}-1200.jpg`),
     alt,
   };
 }
@@ -399,3 +399,4 @@ export const films = [
 export function getFilmBySlug(slug: string): Film | undefined {
   return films.find((film) => film.slug === slug);
 }
+import { sitePath } from '../lib/sitePath';

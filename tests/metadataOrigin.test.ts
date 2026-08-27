@@ -25,4 +25,15 @@ describe('resolveMetadataOrigin', () => {
       ).origin,
     ).toBe('https://aura-film-archive.dhjdhdhdjdj2.chatgpt.site');
   });
+
+  it('accepts a GitHub Pages origin only for an explicit Pages build', () => {
+    const pagesOrigin = 'https://dhjdhdhdjdj2-coder.github.io/aura-film-archive/';
+
+    expect(resolveMetadataOrigin(pagesOrigin, 'production', true).href).toBe(
+      pagesOrigin,
+    );
+    expect(() => resolveMetadataOrigin(pagesOrigin, 'production', false)).toThrow(
+      /trusted HTTPS origin/i,
+    );
+  });
 });

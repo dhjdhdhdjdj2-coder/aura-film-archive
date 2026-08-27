@@ -14,8 +14,11 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
+const metadataOrigin = resolveMetadataOrigin();
+const socialImageUrl = new URL('og.png', metadataOrigin).href;
+
 export const metadata: Metadata = {
-  metadataBase: resolveMetadataOrigin(),
+  metadataBase: metadataOrigin,
   title: {
     default: 'AURA FILM ARCHIVE',
     template: '%s — AURA FILM ARCHIVE',
@@ -38,7 +41,7 @@ export const metadata: Metadata = {
     siteName: 'AURA FILM ARCHIVE',
     images: [
       {
-        url: '/og.png',
+        url: socialImageUrl,
         width: 1200,
         height: 630,
         alt: 'AURA FILM ARCHIVE — Cinema that never existed',
@@ -49,7 +52,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'AURA FILM ARCHIVE',
     description: 'Cinema that never existed, preserved as if it did.',
-    images: ['/og.png'],
+    images: [socialImageUrl],
   },
   robots: {
     index: true,

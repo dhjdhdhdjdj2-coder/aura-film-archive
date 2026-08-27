@@ -1,4 +1,5 @@
 import type { Film } from '../data/films';
+import { sitePath } from '../lib/sitePath';
 import styles from './FilmCard.module.css';
 
 interface FilmCardProps {
@@ -11,7 +12,7 @@ export function FilmCard({ film, onOpen }: FilmCardProps) {
     <article className={styles.card} data-archive-target>
       <a
         className={styles.link}
-        href={`/?film=${film.slug}`}
+        href={`${sitePath('/')}?film=${film.slug}`}
         aria-label={`View ${film.title}`}
         onClick={(event) => {
           event.preventDefault();

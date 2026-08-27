@@ -6,6 +6,7 @@ export function resolveMetadataOrigin(
     process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test'
       ? process.env.NODE_ENV
       : 'production',
+  allowGithubPages = process.env.GITHUB_PAGES === 'true',
 ) {
   if (!rawOrigin) {
     if (environment === 'production') {
@@ -21,12 +22,17 @@ export function resolveMetadataOrigin(
     throw new Error('NEXT_PUBLIC_SITE_ORIGIN must be an absolute URL.');
   }
 
+  const trustedSitesOrigin = origin.hostname.endsWith(SITES_HOST_SUFFIX);
+  const trustedGithubPagesOrigin =
+    allowGithubPages && origin.hostname.endsWith('.github.io');
+
   if (
     environment === 'production' &&
-    (origin.protocol !== 'https:' || !origin.hostname.endsWith(SITES_HOST_SUFFIX))
+    (origin.protocol !== 'https:' ||
+      (!trustedSitesOrigin && !trustedGithubPagesOrigin))
   ) {
     throw new Error(
-      'Production NEXT_PUBLIC_SITE_ORIGIN must be a trusted HTTPS Sites origin.',
+      'Production NEXT_PUBLIC_SITE_ORIGIN must be a trusted HTTPS Sites origin or trusted HTTPS origin for GitHub Pages.',
     );
   }
 

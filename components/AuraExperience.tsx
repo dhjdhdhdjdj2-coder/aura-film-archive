@@ -9,7 +9,7 @@ import { FilmArchive } from './FilmArchive';
 import { FilmDetail } from './FilmDetail';
 import { Landing } from './Landing';
 import { VisualLaboratory } from './VisualLaboratory';
-import { films, getFilmBySlug } from '../data/films';
+import { films, getFilmBySlug, type Film } from '../data/films';
 import { useArchiveUrlState } from '../hooks/useArchiveUrlState';
 import { useAuraMotion } from '../hooks/useAuraMotion';
 import { useMotionPreference } from '../hooks/useMotionPreference';
@@ -67,7 +67,7 @@ export function AuraExperience() {
     ? films.findIndex((film) => film.slug === selectedFilm.slug)
     : -1;
   const openFilm = useCallback(
-    (film: (typeof films)[number]) => updateArchiveState({ film: film.slug }),
+    (film: Film) => updateArchiveState({ film: film.slug }),
     [updateArchiveState],
   );
   const closeFilm = useCallback(

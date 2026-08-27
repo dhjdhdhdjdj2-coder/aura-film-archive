@@ -7,6 +7,7 @@ import {
   type LabAtmosphere,
   type LabMaterial,
 } from '../lib/labReducer';
+import { sitePath } from '../lib/sitePath';
 import styles from './VisualLaboratory.module.css';
 
 const materials: LabMaterial[] = ['paper', 'glass', 'metal'];
@@ -17,6 +18,14 @@ type LabStyle = CSSProperties & {
   '--lab-temperature-shift': string;
   '--lab-tint': string;
   '--lab-contrast': number;
+  '--grain-texture': string;
+};
+
+const glassTidePoster = {
+  avifSrcSet: `${sitePath('/posters/glass-tide-800.avif')} 800w, ${sitePath('/posters/glass-tide-1200.avif')} 1200w`,
+  webpSrcSet: `${sitePath('/posters/glass-tide-800.webp')} 800w, ${sitePath('/posters/glass-tide-1200.webp')} 1200w`,
+  jpgSrcSet: `${sitePath('/posters/glass-tide-800.jpg')} 800w, ${sitePath('/posters/glass-tide-1200.jpg')} 1200w`,
+  jpg: sitePath('/posters/glass-tide-1200.jpg'),
 };
 
 export function VisualLaboratory() {
@@ -28,6 +37,7 @@ export function VisualLaboratory() {
     '--lab-temperature-shift': `${((state.temperature - 5100) / 1900) * 12}deg`,
     '--lab-tint': `${state.tint * 0.7}deg`,
     '--lab-contrast': state.contrast,
+    '--grain-texture': `url("${sitePath('/textures/grain.webp')}")`,
   };
 
   const resetStudy = () => {
@@ -57,17 +67,17 @@ export function VisualLaboratory() {
             <picture>
               <source
                 type="image/avif"
-                srcSet="/posters/glass-tide-800.avif 800w, /posters/glass-tide-1200.avif 1200w"
+                srcSet={glassTidePoster.avifSrcSet}
                 sizes="(max-width: 760px) 82vw, 47vw"
               />
               <source
                 type="image/webp"
-                srcSet="/posters/glass-tide-800.webp 800w, /posters/glass-tide-1200.webp 1200w"
+                srcSet={glassTidePoster.webpSrcSet}
                 sizes="(max-width: 760px) 82vw, 47vw"
               />
               <img
-                src="/posters/glass-tide-1200.jpg"
-                srcSet="/posters/glass-tide-800.jpg 800w, /posters/glass-tide-1200.jpg 1200w"
+                src={glassTidePoster.jpg}
+                srcSet={glassTidePoster.jpgSrcSet}
                 sizes="(max-width: 760px) 82vw, 47vw"
                 alt="Glass Tide laboratory study"
                 width="1200"

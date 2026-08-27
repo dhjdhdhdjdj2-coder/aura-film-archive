@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "vinext dev",
     "build": "node scripts/check-production-origin.mjs && vinext build",
+    "build:pages": "next build",
     "start": "vinext start",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "check:budget": "node scripts/check-budget.mjs",
